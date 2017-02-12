@@ -11,13 +11,14 @@ class MainWindow;
 
 class QSystemTrayIcon;
 
-class MainWindow : public QMainWindow
+class ip_window : public QMainWindow
 {
     Q_OBJECT
 
 public:
-    explicit MainWindow(QWidget *parent = 0);
-    ~MainWindow();
+    explicit ip_window(QWidget *parent = 0);
+    ~ip_window();
+    void move_to_corner();
 
 private:
     Ui::MainWindow *ui;

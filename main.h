@@ -3,7 +3,16 @@
 
 #include <QSystemTrayIcon>
 #include <QMenu>
+//#include <QObject>
 
-QSystemTrayIcon *mSystemTrayIcon;
+class menu_events : public QObject
+{
+    Q_OBJECT
+public:
+    menu_events();
+public slots:
+    void Mac_action();
+    void Ip_action();
+};
 
 #endif // MAIN_H
