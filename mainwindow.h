@@ -2,8 +2,8 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include <QSystemTrayIcon>
-#include <QMenu>
+
+class QCloseEvent;
 
 namespace Ui {
 class MainWindow;
@@ -18,10 +18,12 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
-    QSystemTrayIcon *mSystemTrayIcon;
 
 private:
     Ui::MainWindow *ui;
+
+protected:
+    void closeEvent(QCloseEvent *e);
 };
 
 #endif // MAINWINDOW_H
