@@ -25,14 +25,16 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += main.cpp\
     mac.cpp \
-    mainwindow.cpp
+    ip.cpp
 
-HEADERS  += mainwindow.h \
+HEADERS  += \
     mac.h \
-    main.h
+    main.h \
+    ip.h
 
-FORMS    += mainwindow.ui \
-    mac.ui
+FORMS    += \
+    mac.ui \
+    ip.ui
 
 QMAKE_CXXFLAGS += -std=gnu++14
 

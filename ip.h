@@ -16,35 +16,33 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-#ifndef MAC_H
-#define MAC_H
+#ifndef IP_H
+#define IP_H
 
 #include <QMainWindow>
-#include <QLineEdit>
+
+class QCloseEvent;
 
 namespace Ui {
-class mac_mod;
+class ip_mod;
 }
 
-class mac_window : public QMainWindow
+class QSystemTrayIcon;
+
+class ip_window : public QMainWindow
 {
     Q_OBJECT
-    QLineEdit *lines[3][2];
+
 public:
-    explicit mac_window(QWidget *parent = 0);
-    ~mac_window();
+    explicit ip_window(QWidget *parent = 0);
+    ~ip_window();
     void move_to_corner();
-    bool main_line_selected;
 
 private:
-    Ui::mac_mod *ui;
-    bool eventFilter(QObject *obj, QEvent *event);
+    Ui::ip_mod *ui;
 
 protected:
     void closeEvent(QCloseEvent *e);
-
-public slots:
-    void mac_change(QString str);
 };
 
-#endif // MAC_H
+#endif // IP_H
