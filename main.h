@@ -13,6 +13,7 @@ public:
 public slots:
     void Mac_action();
     void Ip_action();
+    void trayIconActivated(QSystemTrayIcon::ActivationReason reason);
 };
 
 #endif // MAIN_H

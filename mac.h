@@ -16,9 +16,11 @@ public:
     explicit mac_window(QWidget *parent = 0);
     ~mac_window();
     void move_to_corner();
+    bool main_line_selected;
 
 private:
     Ui::mac *ui;
+    bool eventFilter(QObject *obj, QEvent *event);
 
 protected:
     void closeEvent(QCloseEvent *e);

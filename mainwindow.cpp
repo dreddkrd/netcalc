@@ -21,11 +21,13 @@ this->hide();
 e->ignore();
 }
 
-void ip_window::move_to_corner() {
+void ip_window::move_to_corner()
+{
     QDesktopWidget desktop;
-    QRect rect = desktop.availableGeometry(desktop.primaryScreen()); // прямоугольник с размерами экрана
-    QPoint pos = rect.bottomRight(); //координаты центра экрана
-    pos.setX(pos.x() - (this->width()));  // учитываем половину ширины окна
-    pos.setY(pos.y() - (this->height()));  // .. половину высоты
+    QRect rect = desktop.availableGeometry(-1/*desktop.primaryScreen()*/); // прямоугольник с размерами экрана
+    QRect window = this->frameGeometry();
+    QPoint pos = rect.bottomRight(); //координаты угла экрана
+    pos.setX(pos.x() - (window.width()));  // учитываем половину ширины окна
+    pos.setY(pos.y() - (window.height()));  // .. половину высоты
     move(pos);
 }

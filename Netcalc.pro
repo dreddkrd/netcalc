@@ -34,9 +34,9 @@ HEADERS  += mainwindow.h \
 FORMS    += mainwindow.ui \
     mac.ui
 
-#R_ICONS = myapp.ico
-
 QMAKE_CXXFLAGS += -std=gnu++14
 
 RESOURCES += \
     res.qrc
+
+RC_FILE = res.rc
