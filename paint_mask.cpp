@@ -22,44 +22,37 @@
 #include <QMouseEvent>
 
 Paint_mask::Paint_mask(QWidget * parent) : QWidget(parent)
-{
-    wid = parent;
-    painter = new QPainter;
-
-    QRect r;
-    r.setWidth(wid->width());
-    r.setHeight(wid->height());
-//    setGeometry(r);
-
-    //painter = new QPainter(); // Создаём новый объект рисовальщика
-//    painter = new QPainter();
-//    painter->begin(wid);
-//    painter->setBrush(QBrush(QColor(50,50,50)));
-//    painter->drawLine(1,2,3,4);
-}
+	{
+	wid = parent;
+	}
 
 void Paint_mask::paintEvent(QPaintEvent *)
-{
-//    QMessageBox mb;
-//    mb.setText("bla");
-//    mb.exec();
-    QColor c;
-    c.setRed(255);
+	{
+	QPainter painter(this);
 
-    int w = wid->width();
-    int h = wid->height();
-    //p.fillRect(0,0,w,h,c);
+	QRect r;
+	r.setWidth(wid->width());
+	r.setHeight(wid->height());
+	setGeometry(r);
 
-    painter->fillRect(0,0,w,h,c);
-    //p.setPen(QPen(Qt::red,1,Qt::SolidLine)); // Настройки рисования
-    //p.drawLine(0,0,wid->width(),wid->height()); // Рисование линии
-}
+
+	QColor c;
+	c.setRed(255);
+
+	int w = wid->width();
+	int h = wid->height();
+	//p.fillRect(0,0,w,h,c);
+
+	painter.fillRect(0,0,w,h,c);
+	//p.setPen(QPen(Qt::red,1,Qt::SolidLine)); // Настройки рисования
+	//p.drawLine(0,0,wid->width(),wid->height()); // Рисование линии
+	}
 
 void Paint_mask::mousePressEvent(QMouseEvent *event)
-{
-    if(event->button() == Qt::LeftButton)
-    {
-        int x = event->x();
-        int y = event->y();
-    }
-}
+	{
+	if(event->button() == Qt::LeftButton)
+		{
+		int x = event->x();
+		int y = event->y();
+		}
+	}

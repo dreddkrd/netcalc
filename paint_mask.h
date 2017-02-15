@@ -25,17 +25,17 @@
 
 class Paint_mask : public QWidget
 {
-    Q_OBJECT
+	Q_OBJECT
 public:
-    Paint_mask(QWidget * parent = 0);
+	Paint_mask(QWidget * parent = 0);
 
 private:
-    QWidget *wid;
-    QPainter *painter;
+	QWidget *wid;
+	QPainter *painter;
 
 protected:
-    void paintEvent(QPaintEvent *);
-    void mousePressEvent(QMouseEvent *event);
+	void paintEvent(QPaintEvent *);
+	void mousePressEvent(QMouseEvent *event);
 };
 
 #endif // PAINT_MASK_H

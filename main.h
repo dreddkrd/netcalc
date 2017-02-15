@@ -25,13 +25,13 @@
 
 class menu_events : public QObject
 {
-    Q_OBJECT
+	Q_OBJECT
 public:
-    menu_events();
+	menu_events();
 public slots:
-    void Mac_action();
-    void Ip_action();
-    void trayIconActivated(QSystemTrayIcon::ActivationReason reason);
+	void Mac_action();
+	void Ip_action();
+	void trayIconActivated(QSystemTrayIcon::ActivationReason reason);
 };
 
 #endif // MAIN_H

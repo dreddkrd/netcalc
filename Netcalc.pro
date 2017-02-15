@@ -26,13 +26,15 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += main.cpp\
     mac.cpp \
     ip.cpp \
-    paint_mask.cpp
+    paint_mask.cpp \
+    ipmask.cpp
 
 HEADERS  += \
     mac.h \
     main.h \
     ip.h \
-    paint_mask.h
+    paint_mask.h \
+    ipmask.h
 
 FORMS    += \
     mac.ui \
@@ -44,3 +46,6 @@ RESOURCES += \
     res.qrc
 
 RC_FILE = res.rc
+
+DISTFILES += \
+    codestyle.xml

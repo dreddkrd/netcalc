@@ -31,18 +31,18 @@ class QSystemTrayIcon;
 
 class ip_window : public QMainWindow
 {
-    Q_OBJECT
+	Q_OBJECT
 
 public:
-    explicit ip_window(QWidget *parent = 0);
-    ~ip_window();
-    void move_to_corner();
+	explicit ip_window(QWidget *parent = 0);
+	~ip_window();
+	void move_to_corner();
 
 private:
-    Ui::ip_mod *ui;
+	Ui::ip_mod *ui;
 
 protected:
-    void closeEvent(QCloseEvent *e);
+	void closeEvent(QCloseEvent *e);
 };
 
 #endif // IP_H

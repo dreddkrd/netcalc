@@ -19,39 +19,44 @@
 #include "ip.h"
 #include "ui_ip.h"
 #include "paint_mask.h"
+#include "ipmask.h"
 #include <QtGui/QCloseEvent>
 #include <QDesktopWidget>
 
 Paint_mask *bits;
 
 ip_window::ip_window(QWidget *parent) :
-    QMainWindow(parent),
-    ui(new Ui::ip_mod)
-{
-    ui->setupUi(this);
-    bits = new Paint_mask(ui->ip_bar);
-    bits->setParent(ui->ip_bar);
-//    ui->verticalLayout->addWidget(bits);
-}
+	QMainWindow(parent),
+	ui(new Ui::ip_mod)
+	{
+	ui->setupUi(this);
+	bits = new Paint_mask(ui->ip_bar);
+	bits->setParent(ui->ip_bar);
+	//    ui->verticalLayout->addWidget(bits);
+	Ipmask *test = new Ipmask();
+	test->setIp("127.0.0.1");
+	QString ttt = test->getIpStr();
+	test->setMask("0.0.0.123");
+	}
 
 ip_window::~ip_window()
-{
-    delete ui;
-}
+	{
+	delete ui;
+	}
 
 void ip_window::closeEvent(QCloseEvent *e)
-{
-this->hide();
-e->ignore();
-}
+	{
+	this->hide();
+	e->ignore();
+	}
 
 void ip_window::move_to_corner()
-{
-    QDesktopWidget desktop;
-    QRect rect = desktop.availableGeometry(-1/*desktop.primaryScreen()*/); // прямоугольник с размерами экрана
-    QRect window = this->frameGeometry();
-    QPoint pos = rect.bottomRight(); //координаты угла экрана
-    pos.setX(pos.x() - (window.width()));  // учитываем половину ширины окна
-    pos.setY(pos.y() - (window.height()));  // .. половину высоты
-    move(pos);
-}
+	{
+	QDesktopWidget desktop;
+	QRect rect = desktop.availableGeometry(-1/*desktop.primaryScreen()*/); // прямоугольник с размерами экрана
+	QRect window = this->frameGeometry();
+	QPoint pos = rect.bottomRight(); //координаты угла экрана
+	pos.setX(pos.x() - (window.width()));  // учитываем половину ширины окна
+	pos.setY(pos.y() - (window.height()));  // .. половину высоты
+	move(pos);
+	}
