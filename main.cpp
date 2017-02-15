@@ -52,12 +52,12 @@ int main(int argc, char *argv[])
 
     // Setting actions...
     mac_action = new QAction("MAC-адреса", nullptr);
-//    ip_action = new QAction("IP-адреса", nullptr);
+    ip_action = new QAction("IP-адреса", nullptr);
     quit_action = new QAction("Выход", nullptr);
 
     // Connecting actions to slots...
     QObject::connect(mac_action, SIGNAL(triggered()), mev, SLOT(Mac_action()));
-//    QObject::connect(ip_action, SIGNAL(triggered()), mev, SLOT(Ip_action()));
+    QObject::connect(ip_action, SIGNAL(triggered()), mev, SLOT(Ip_action()));
     QObject::connect(quit_action, SIGNAL(triggered()), qApp, SLOT(quit()));
 
     // Setting system tray's icon menu...

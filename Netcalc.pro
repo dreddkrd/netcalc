@@ -25,12 +25,14 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += main.cpp\
     mac.cpp \
-    ip.cpp
+    ip.cpp \
+    paint_mask.cpp
 
 HEADERS  += \
     mac.h \
     main.h \
-    ip.h
+    ip.h \
+    paint_mask.h
 
 FORMS    += \
     mac.ui \

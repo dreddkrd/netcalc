@@ -17,8 +17,18 @@
    <iconset resource="res.qrc">
     <normaloff>:/network.png</normaloff>:/network.png</iconset>
   </property>
-  <widget class="QWidget" name="centralWidget"/>
-  <widget class="QStatusBar" name="statusBar"/>
+  <widget class="QWidget" name="centralWidget">
+   <widget class="QWidget" name="ip_bar" native="true">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>90</y>
+      <width>351</width>
+      <height>21</height>
+     </rect>
+    </property>
+   </widget>
+  </widget>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources>

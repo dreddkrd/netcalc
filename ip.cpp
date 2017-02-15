@@ -18,14 +18,20 @@
 
 #include "ip.h"
 #include "ui_ip.h"
+#include "paint_mask.h"
 #include <QtGui/QCloseEvent>
 #include <QDesktopWidget>
+
+Paint_mask *bits;
 
 ip_window::ip_window(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::ip_mod)
 {
     ui->setupUi(this);
+    bits = new Paint_mask(ui->ip_bar);
+    bits->setParent(ui->ip_bar);
+//    ui->verticalLayout->addWidget(bits);
 }
 
 ip_window::~ip_window()
