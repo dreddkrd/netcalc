@@ -29,8 +29,8 @@ ip_window::ip_window(QWidget *parent) :
 	connect(ui->lineEdit, SIGNAL(textChanged(QString)), this, SLOT(ip_change(QString)));
 
 	ipmask = new Ipmask();
-	ipmask->setIp("192.168.0.1");
-	ipmask->setMask("255.255.255.252");
+//	ipmask->setIp("192.168.0.1");
+//	ipmask->setMask("255.255.255.252");
 
 	ipbar = new Paint_mask(ui->ip_bar);
 	ipbar->setParent(ui->ip_bar);
@@ -142,17 +142,10 @@ void ip_window::ipBitChange(qint8 bit)
 
 void ip_window::maskBitChange(qint8 bit)
 	{
-/*
-	qint32 mask = ipmask->getMask32();
-	if((mask>>bit)&1) // был 1, ставим 0
+	if(ipmask->getCidr8() == 1 && bit == 31)
 		{
-		mask &= ~(1<<bit);
+		ipmask->setCidr(0);
+		update();
 		}
-	else // был 0, ставим 1
-		{
-		mask |= (1<<bit);
-		}
-	if(ipmask->setMask(mask)) update();
-*/
-	if(ipmask->setCidr(32-bit)) update();
+	else if(ipmask->setCidr(32-bit)) update();
 	}
