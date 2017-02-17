@@ -90,7 +90,6 @@ void ip_window::update()
 	qint32 network = ipmask->getIp32() & ipmask->getMask32();
 	qint32 bcast = ipmask->getIp32() | ~ipmask->getMask32();
 	ui->edit_network->setText(ipmask->itoa(network));
-	ui->edit_bcast->setText(ipmask->itoa(bcast));
 
 	qint8 cidr = ipmask->getCidr8();
 	QString cidr_str;
@@ -98,23 +97,25 @@ void ip_window::update()
 
 	ui->cidr_label->setText(cidr_str);
 
+	if(cidr<32)
+		{
+		ui->edit_bcast->setText(ipmask->itoa(bcast));
+		}
+	else
+		{
+		ui->edit_bcast->setText("n/a");
+		}
+
 	if(cidr<31)
 		{
 		ui->edit_host_min->setText(ipmask->itoa(network+1));
 		ui->edit_host_max->setText(ipmask->itoa(bcast-1));
+		ui->edit_hosts->setText(QString::number((quint32)(~(ipmask->getMask32())-1),10));
 		}
 	else
 		{
 		ui->edit_host_min->setText("n/a");
 		ui->edit_host_max->setText("n/a");
-		}
-
-	if(cidr<31)
-		{
-		ui->edit_hosts->setText(QString::number((quint32)(~(ipmask->getMask32())-1),10));
-		}
-	else
-		{
 		ui->edit_hosts->setText("n/a");
 		}
 
