@@ -164,5 +164,3 @@ bool Ipmask::isContinuos(qint32 in_mask)
 	return true;
 	}
 
-
-

@@ -35,11 +35,12 @@ ip_window::ip_window(QWidget *parent) :
 	ipbar = new Paint_mask(ui->ip_bar);
 	ipbar->setParent(ui->ip_bar);
 	ipbar->mask = ipmask->getIp32();
+	connect(ipbar, SIGNAL(bitSelected(qint8)), this, SLOT(ipBitChange(qint8)));
 
 	maskbar = new Paint_mask(ui->mask_bar);
 	maskbar->setParent(ui->mask_bar);
 	maskbar->mask = ipmask->getMask32();
-	//    ui->verticalLayout->addWidget(bits);
+	connect(maskbar, SIGNAL(bitSelected(qint8)), this, SLOT(maskBitChange(qint8)));
 	}
 
 ip_window::~ip_window()
@@ -123,4 +124,35 @@ void ip_window::update()
 	ipbar->repaint();
 	maskbar->mask = ipmask->getMask32();
 	maskbar->repaint();
+	}
+
+void ip_window::ipBitChange(qint8 bit)
+	{
+	qint32 ip = ipmask->getIp32();
+	if((ip>>bit)&1) // был 1, ставим 0
+		{
+		ip &= ~(1<<bit);
+		}
+	else // был 0, ставим 1
+		{
+		ip |= (1<<bit);
+		}
+	if(ipmask->setIp(ip)) update();
+	}
+
+void ip_window::maskBitChange(qint8 bit)
+	{
+/*
+	qint32 mask = ipmask->getMask32();
+	if((mask>>bit)&1) // был 1, ставим 0
+		{
+		mask &= ~(1<<bit);
+		}
+	else // был 0, ставим 1
+		{
+		mask |= (1<<bit);
+		}
+	if(ipmask->setMask(mask)) update();
+*/
+	if(ipmask->setCidr(32-bit)) update();
 	}

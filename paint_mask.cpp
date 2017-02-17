@@ -37,8 +37,8 @@ void Paint_mask::paintEvent(QPaintEvent *)
 	r.setHeight(wid->height());
 	setGeometry(r);
 
-	int block_width = wid->width()/35;
-	int block_height = block_width*1.5;
+	block_width = wid->width()/BLOCKS;
+	block_height = block_width*BLOCKS_HEIGHT_ASPECT;
 	int bit = 31;
 	for(int i=0;i<=34;i++)
 		{
@@ -79,9 +79,18 @@ void Paint_mask::paintEvent(QPaintEvent *)
 
 void Paint_mask::mousePressEvent(QMouseEvent *event)
 	{
-	if(event->button() == Qt::LeftButton)
+	if(event->button() == Qt::LeftButton && event->x() <= this->block_width*35 && event->y() <= this->block_height) // если левая кнопка, и мы попали в поле маски (0,0 - тоже попали, поэтому сравнение только такое)
 		{
-		int x = event->x();
-		int y = event->y();
+		qint8 bit = event->x()/block_width;
+//		if(i==8 || i==17 || i==26) continue;
+		if(bit == 8 || bit == 17 || bit == 26) return;
+		if(bit > 26) bit-=3;
+		else if (bit > 17) bit-=2;
+		else if (bit > 8) bit-=1;
+		emit bitSelected(31-bit);
 		}
 	}
+
+
+
+

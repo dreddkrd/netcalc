@@ -52,6 +52,8 @@ protected:
 
 public slots:
 	void ip_change(QString str);
+	void ipBitChange(qint8 bit);
+	void maskBitChange(qint8 bit);
 };
 
 #endif // IP_H

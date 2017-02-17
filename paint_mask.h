@@ -23,6 +23,9 @@
 #include <QWidget>
 #include <QPainter>
 
+#define BLOCKS 35
+#define BLOCKS_HEIGHT_ASPECT 1.5
+
 class Paint_mask : public QWidget
 {
 	Q_OBJECT
@@ -38,6 +41,9 @@ private:
 protected:
 	void paintEvent(QPaintEvent *);
 	void mousePressEvent(QMouseEvent *event);
+
+signals:
+	void bitSelected(qint8 bit);
 };
 
 #endif // PAINT_MASK_H
