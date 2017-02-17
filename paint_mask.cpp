@@ -24,26 +24,55 @@
 Paint_mask::Paint_mask(QWidget * parent) : QWidget(parent)
 	{
 	wid = parent;
+	mask = 0;
 	}
 
 void Paint_mask::paintEvent(QPaintEvent *)
 	{
-	QPainter painter(this);
+	QPainter p(this);
+	//p.setRenderHint(QPainter::TextAntialiasing);
 
 	QRect r;
 	r.setWidth(wid->width());
 	r.setHeight(wid->height());
 	setGeometry(r);
 
+	int block_width = wid->width()/35;
+	int block_height = block_width*1.5;
+	int bit = 31;
+	for(int i=0;i<=34;i++)
+		{
+		if(i==8 || i==17 || i==26) continue;
+		QColor cRed, cGreen, cWhite;
+		cRed.setRed(255); cRed.setGreen(220); cRed.setBlue(220);
+		cGreen.setRed(220); cGreen.setGreen(255); cGreen.setBlue(220);
+		cWhite.setRed(255); cWhite.setGreen(255); cWhite.setBlue(255);
 
-	QColor c;
-	c.setRed(255);
+		p.setPen(QPen(Qt::black,1,Qt::SolidLine));
+		p.fillRect(i*block_width, 0, block_width, block_height, ((mask>>bit)&1)?cGreen:cRed);
+		p.drawRect(i*block_width, 0, block_width, block_height);
 
-	int w = wid->width();
-	int h = wid->height();
+
+		p.setPen(QPen(Qt::black,1,Qt::SolidLine));
+
+		if((mask>>bit)&1) // draw 1
+			{
+			QRect letter = QRect(i*block_width, 0, block_width, block_height);
+			p.drawText(letter, Qt::AlignCenter, "1");
+			}
+		else // draw 0
+			{
+			QRect letter = QRect(i*block_width+1, 0, block_width, block_height);
+			p.drawText(letter, Qt::AlignCenter, "0");
+			}
+		bit--;
+		}
+
+//	int w = wid->width();
+//	int h = wid->height();
 	//p.fillRect(0,0,w,h,c);
 
-	painter.fillRect(0,0,w,h,c);
+//	painter.fillRect(0,0,w,h,c);
 	//p.setPen(QPen(Qt::red,1,Qt::SolidLine)); // Настройки рисования
 	//p.drawLine(0,0,wid->width(),wid->height()); // Рисование линии
 	}

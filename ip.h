@@ -20,6 +20,8 @@
 #define IP_H
 
 #include <QMainWindow>
+#include "paint_mask.h"
+#include "ipmask.h"
 
 class QCloseEvent;
 
@@ -37,12 +39,19 @@ public:
 	explicit ip_window(QWidget *parent = 0);
 	~ip_window();
 	void move_to_corner();
+	void update();
 
 private:
 	Ui::ip_mod *ui;
+	Paint_mask *ipbar;
+	Paint_mask *maskbar;
+	Ipmask *ipmask;
 
 protected:
 	void closeEvent(QCloseEvent *e);
+
+public slots:
+	void ip_change(QString str);
 };
 
 #endif // IP_H

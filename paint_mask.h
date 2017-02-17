@@ -27,11 +27,13 @@ class Paint_mask : public QWidget
 {
 	Q_OBJECT
 public:
+	qint32 mask;
 	Paint_mask(QWidget * parent = 0);
 
 private:
 	QWidget *wid;
-	QPainter *painter;
+	int block_width;
+	int block_height;
 
 protected:
 	void paintEvent(QPaintEvent *);

@@ -19,17 +19,48 @@ bool Ipmask::setIp(qint32 in_ip)
 
 bool Ipmask::setMask(QString in_mask)
 	{
-	return atoi(in_mask, mask);
+	qint32 new_mask;
+	bool ok = atoi(in_mask, new_mask);
+	if(ok && isContinuos(new_mask))
+		{
+		mask = new_mask;
+		return true;
+		}
+	return false;
 	}
 
 bool Ipmask::setMask(qint32 in_mask)
 	{
-	mask = in_mask;
-	return true;
+	if(isContinuos(in_mask))
+		{
+		mask = in_mask;
+		return true;
+		}
+	else return false;
 	}
 
-bool Ipmask::setCidr(qint8 in_cidr)    /*=-=-=-=-=-=-=-= TODO =-=-=-=-=-=-=-=*/
+bool Ipmask::setCidr(QString cidr)
 	{
+	bool ok;
+	qint8 c = cidr.toInt(&ok, 10);
+	if(ok)
+		return setCidr(c);
+	else
+		return false;
+	}
+
+bool Ipmask::setCidr(qint8 cidr)
+	{
+	if(cidr >= 0 && cidr <= 32)
+		{
+		qint32 res = 0;
+		for(int i=31;i>=(32-cidr);i--)
+			{
+			res |= 1<<i;
+			}
+		mask = res;
+		}
+	else return false;
 	return true;
 	}
 
@@ -38,9 +69,39 @@ QString Ipmask::getIpStr()
 	return itoa(ip);
 	}
 
+qint32 Ipmask::getIp32()
+	{
+	return ip;
+	}
+
+QString Ipmask::getMaskStr()
+	{
+	return itoa(mask);
+	}
+
+qint32 Ipmask::getMask32()
+	{
+	return mask;
+	}
+
+QString Ipmask::getCidrStr()
+	{
+	qint8 cidr = getCidr8();
+	return QString::number(cidr, 10);
+	}
+
+qint8 Ipmask::getCidr8()
+	{
+	int i=31;
+	qint8 cidr = 0;
+	while(i>=0 && (mask>>i--)&1)
+		cidr++;
+	return cidr;
+	}
+
 bool Ipmask::atoi(QString addr, qint32 &result)
 	{
-	QString buf[4];
+	QString buf[4] = {0,0,0,0};
 	int buf_index = 0;
 	for(int i=0; i<addr.length(); i++)
 		{
@@ -59,6 +120,7 @@ bool Ipmask::atoi(QString addr, qint32 &result)
 			}
 		}
 	//qint8 [4] = {0, 0, 0, 0};
+	for(int i=0; i<=3; i++) if(!buf[i].length()) buf[i] = "0";
 	qint32 ip_out = 0;
 	for(int i=0; i<=3; i++) // идём по октетам, если дожили досюда
 		{
@@ -76,7 +138,7 @@ bool Ipmask::atoi(QString addr, qint32 &result)
 QString Ipmask::itoa(qint32 addr)
 	{
 	QString result;
-	qint8 oct;
+	quint8 oct;
 	for(int i=3; i>=0; i--)
 		{
 		oct = (addr>>(i*8)) & 0xFF;
@@ -85,3 +147,22 @@ QString Ipmask::itoa(qint32 addr)
 		}
 	return result;
 	}
+
+bool Ipmask::isContinuos(qint32 in_mask)
+	{
+	bool last = (in_mask>>31)&1;
+	bool curr;
+	int i=31;
+	while(i >= 0)
+		{
+		curr = (in_mask>>i)&1;
+		if(curr && !last) // 0 -> 1
+			return false;
+		last = curr;
+		i--;
+		}
+	return true;
+	}
+
+
+
