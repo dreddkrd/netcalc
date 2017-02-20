@@ -21,6 +21,12 @@
 
 #include <QString>
 
+struct SInfo
+{
+	QString small;
+	QString large;
+};
+
 class Ipmask
 {
 public:
@@ -43,6 +49,8 @@ public:
 
 	bool atoi(QString addr, qint32 &result);
 	QString itoa(qint32 addr);
+	bool get_info(SInfo *info);
+	QChar get_class();
 
 private:
 	qint32 ip;

@@ -41,6 +41,8 @@ ip_window::ip_window(QWidget *parent) :
 	maskbar->setParent(ui->mask_bar);
 	maskbar->mask = ipmask->getMask32();
 	connect(maskbar, SIGNAL(bitSelected(qint8)), this, SLOT(maskBitChange(qint8)));
+
+	ui->description->setHidden(true);
 	}
 
 ip_window::~ip_window()
@@ -119,6 +121,18 @@ void ip_window::update()
 		ui->edit_host_max->setText("n/a");
 		ui->edit_hosts->setText("n/a");
 		}
+
+	SInfo info;
+	if(ipmask->get_info(&info))
+		{
+		ui->description->setHidden(false);
+		ui->text_small->setText(info.small);
+		ui->text_large->setText(info.large);
+		}
+	else
+		ui->description->setHidden(true);
+
+	ui->class_label->setText(ipmask->get_class());
 
 	ipbar->mask = ipmask->getIp32();
 	ipbar->repaint();

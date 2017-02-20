@@ -182,3 +182,51 @@ bool Ipmask::isContinuos(qint32 in_mask)
 	return true;
 	}
 
+bool Ipmask::get_info(SInfo *info)
+	{
+	quint32 ipa = (quint32)ip;
+	if(ipa == 0) {info->small = "0.0.0.0/32"; info->large = "В сокетах с состоянием «listening» обозначает любые IP отправителя или любые сети получателя на текущем хосте."; return true;}
+	if(ipa > 0 && ipa <= 16777215) {info->small = "0.0.0.0/8"; info->large = "Адреса источников пакетов «этой» («своей») сети."; return true;}
+	if(ipa >= 167772160 && ipa <= 184549375) {info->small = "10.0.0.0/8"; info->large = "Для использования в частных сетях."; return true;}
+	if(ipa >= 1681915904 && ipa <= 1686110207) {info->small = "100.64.0.0/10"; info->large = "Shared Address Space. RFC 6598. Для использования в сетях сервис-провайдера."; return true;}
+	if(ipa >= 2130706432 && ipa <= 2147483647) {info->small = "127.0.0.0/8"; info->large = "Подсеть для коммуникаций внутри хоста (localhost). Используется сетевая подсистема, но в действительности такие пакеты не проходят через сетевую карту."; return true;}
+	if(ipa >= 2851995648 && ipa <= 2852061183) {info->small = "169.254.0.0/16"; info->large = "Канальные адреса (Link local). Подсеть используется для автоматического назначения IP операционной системой в случае, если настроено получение адреса по DHCP, но ни один сервер не отвечает."; return true;}
+	if(ipa >= 2886729728 && ipa <= 2887778303) {info->small = "172.16.0.0/12"; info->large = "Для использования в частных сетях."; return true;}
+	if(ipa >= 3221225472 && ipa <= 3221225727) {info->small = "192.0.0.0/24"; info->large = "IETF Protocol Assignments"; return true;}
+	if(ipa >= 3221225984 && ipa <= 3221226239) {info->small = "192.0.2.0/24"; info->large = "Для примеров в документации."; return true;}
+	if(ipa == 3227017985) {info->small = "192.88.99.1/32"; info->large = "Применяется в качестве ретранслятора при инкапсуляции IPv6 в IPv4 (6to4). Его анонсируют многие компании. Пакет на этот адрес пойдёт до ближайшего хоста с этим IP, который распакует пакет и отправит его дальше по IPv6 маршрутизации."; return true;}
+	if(ipa >= 3227017984 && ipa <= 3227018239) {info->small = "192.88.99.0/24"; info->large = "Используются для рассылки ближайшему узлу (Anycast)."; return true;}
+	if(ipa >= 3232235520 && ipa <= 3232301055) {info->small = "192.168.0.0/16"; info->large = "Для использования в частных сетях."; return true;}
+	if(ipa >= 3325256704 && ipa <= 3325256959) {info->small = "198.51.100.0/24"; info->large = "Для примеров в документации."; return true;}
+	if(ipa >= 3323068416 && ipa <= 3323199487) {info->small = "198.18.0.0/15"; info->large = "Для стендов тестирования производительности."; return true;}
+	if(ipa >= 3405803776 && ipa <= 3405804031) {info->small = "203.0.113.0/24"; info->large = "Для примеров в документации."; return true;}
+	if(ipa == 3758096385) {info->small = "224.0.0.1"; info->large = "The All Hosts multicast group that contains all systems on the same network segment"; return true;}
+	if(ipa == 3758096386) {info->small = "224.0.0.1"; info->large = "The All Routers multicast group that contains all routers on the same network segment"; return true;}
+	if(ipa == 3758096389) {info->small = "224.0.0.5"; info->large = "AllSPFRouters address. Используется для отправки Hello-сообщений всем OSPF-маршрутизаторам."; return true;}
+	if(ipa == 3758096390) {info->small = "224.0.0.6"; info->large = "AllDRouters address. Используется для отправки OSPF-сообщений выделенным маршрутизаторам OSPF."; return true;}
+	if(ipa == 3758096393) {info->small = "224.0.0.9"; info->large = "RIP версии 2"; return true;}
+	if(ipa == 3758096394) {info->small = "224.0.0.10"; info->large = "EIGRP-маршрутизаторы"; return true;}
+	if(ipa == 3758096402) {info->small = "224.0.0.18"; info->large = "VRRP"; return true;}
+	if(ipa == 3758096406) {info->small = "224.0.0.22"; info->large = "IGMP версии 3"; return true;}
+	if(ipa == 3758096486) {info->small = "224.0.0.102"; info->large = "HSRP версии 2"; return true;}
+	if(ipa == 3758096635) {info->small = "224.0.0.251"; info->large = "Multicast DNS address"; return true;}
+	if(ipa >= 3758096640 && ipa <= 4009754623) {info->small = "224.0.1.0 - 238.255.255.255"; info->large = "Globally Scoped Addresses"; return true;}
+	if(ipa == 4026531834) {info->small = "239.255.255.250"; info->large = "SSDP"; return true;}
+	if(ipa >= 4009754624 && ipa <= 4026531839) {info->small = "239.0.0.0/8"; info->large = "Для частных мультикаст-доменов/организаций (пользовательские адреса). Могут динамически использоваться протоколами."; return true;}
+	if(ipa >= 3758096384 && ipa <= 4026531839) {info->small = "224.0.0.0/4"; info->large = "Используются для многоадресной рассылки (Multicast)."; return true;}
+	if(ipa >= 4026531840 && ipa < 4294967295) {info->small = "240.0.0.0/4"; info->large = "Зарезервировано для использования в будущем. Существует мнение, что эта подсеть больше никогда не будет использована, так как есть множество оборудования, не способного посылать пакеты в эту сеть."; return true;}
+	if(ipa == 4294967295) {info->small = "255.255.255.255"; info->large = "Ограниченный широковещательный адрес. Чаще всего используется как адрес назначения при поиске DHCP серверов."; return true;}
+	return false;
+	}
+
+QChar Ipmask::get_class()
+	{
+	if((ip & 0xF0000000) == 0xF0000000) return 'E';
+	if((ip & 0xF0000000) == 0xE0000000) return 'D';
+	qint8 cidr = getCidr8();
+	if((ip & 0xE0000000) == 0xC0000000 && cidr == 24) return 'C';
+	if((ip & 0xC0000000) == 0x80000000 && cidr == 16) return 'B';
+	if((ip & 0x80000000) == 0x00000000 && cidr == 8) return 'A';
+	return ' ';
+	}
+
