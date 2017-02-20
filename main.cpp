@@ -108,6 +108,8 @@ void menu_events::trayIconActivated(QSystemTrayIcon::ActivationReason reason)
 		//        case QSystemTrayIcon::DoubleClick:
 		this->Mac_action();
 		break;
+	case QSystemTrayIcon::MiddleClick:
+		this->Ip_action();
 	default:
 		break;
 		}
