@@ -21,6 +21,13 @@
 
 #include <QSystemTrayIcon>
 #include <QMenu>
+#ifndef Q_OS_WIN
+	#include <QTextCodec>
+#endif
+#ifdef Q_OS_WIN
+	#include <QSettings>
+	#define APPLICATION_NAME "Netcalc"
+#endif
 //#include <QObject>
 
 class menu_events : public QObject

@@ -21,10 +21,6 @@
 #include "mac.h"
 #include <QApplication>
 
-#if not defined(Q_OS_WIN)
-#include <QTextCodec>
-#endif
-
 QSystemTrayIcon *tray_icon;
 QMenu *tray_menu;
 
@@ -44,8 +40,15 @@ int main(int argc, char *argv[])
 	I_W = new ip_window();
 	M_W = new mac_window();
 
-#if not defined(Q_OS_WIN)
+#ifndef Q_OS_WIN
 	QTextCodec::setCodecForCStrings(QTextCodec::codecForName("utf-8"));
+#endif
+
+#ifdef Q_OS_WIN
+	QSettings settings("HKEY_CURRENT_USER\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", QSettings::NativeFormat);
+	//settings.setValue(APPLICATION_NAME, QDir::toNativeSeparators(QCoreApplication::applicationFilePath()));
+	settings.contains(APPLICATION_NAME);
+	settings.sync();
 #endif
 
 	// Контекстное меню иконки в трее
